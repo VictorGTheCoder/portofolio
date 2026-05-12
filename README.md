@@ -1,11 +1,11 @@
-# AstroZen - Personal Portfolio Website
+# Victor Giordani - Portfolio
 
-AstroZen is a minimalist, accessible and responsive portfolio template for your personal portfolio website. It is built with Astro and TailwindCSS.
+Portfolio personnel de Victor Giordani, étudiant en data science à la HEIG-VD, avec projets IA, data et web.
 
 ![zen-og](https://github.com/user-attachments/assets/7a72aaae-6652-4cd0-becc-8e6a3c224993)
 
 > [!NOTE]
-> The information contained in this template, including names, images, and content, is entirely fictitious and is intended solely to give the design a realistic appearance. Any coincidence with real-life people, events, or situations is purely coincidental. It is recommended that you replace this information with your own information.
+> Ce portfolio contient maintenant du contenu personnel adapté au profil de Victor Giordani.
 
 ## 🔥 Features
 

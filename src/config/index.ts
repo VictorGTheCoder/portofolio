@@ -30,8 +30,6 @@ export const SITE_CONTENT: SiteContent = {
     specialty: "Data Science & produits IA",
     summary:
       "Étudiant en data science à la HEIG-VD, passé par le tronc commun de 42 Lausanne. Je construis des outils concrets autour de l'IA, de l'analyse de données et de l'automatisation.",
-    ctaText: "Voir Polybrain",
-    ctaHref: "https://polybrain.ch",
   },
   experience: [
     {
