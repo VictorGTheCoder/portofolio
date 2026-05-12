@@ -19,7 +19,9 @@ export interface HeroProps {
   name: string;
   specialty: string;
   summary: string;
-  email: string;
+  email?: string;
+  ctaText?: string;
+  ctaHref?: string;
 }
 
 export interface ExperienceProps {
@@ -33,7 +35,8 @@ export interface ExperienceProps {
 export interface ProjectProps {
   name: string;
   summary: string;
-  image: string;
+  image?: string;
+  tags?: string[];
   linkPreview?: string;
   linkSource?: string;
 }

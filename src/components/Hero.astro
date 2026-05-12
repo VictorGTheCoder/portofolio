@@ -3,6 +3,8 @@ import type { HeroProps } from "@types";
 type Props = HeroProps;
 
 const { name, specialty, summary, email } = Astro.props;
+const ctaHref = Astro.props.ctaHref ?? (email ? `mailto:${email}` : "#projects");
+const ctaText = Astro.props.ctaText ?? "Me contacter";
 ---
 
 <section class="py-24 md:py-32" id="#hero">
@@ -22,6 +24,6 @@ const { name, specialty, summary, email } = Astro.props;
 
   <a
     class="inline-block rounded-full bg-primary px-8 py-5 text-sm leading-5 font-medium text-[#fff]"
-    href={`mailto:${email}`}>Get in Touch</a
+    href={ctaHref}>{ctaText}</a
   >
 </section>
