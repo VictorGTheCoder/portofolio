@@ -1,6 +1,5 @@
 ---
 import Section from "./Section.astro";
-import { Image } from "astro:assets";
 import type { ProjectProps } from "@types";
 
 interface Props {
@@ -12,75 +11,46 @@ const { projects } = Astro.props;
 
 <Section text="Projets" href="projects">
   {
-    projects.map(({ name, summary, image, linkPreview, linkSource, tags }, index) => {
+    projects.map(({ name, summary, linkPreview, linkSource, tags }, index) => {
       const top = 98 + index * 40;
-      const initials = name
-        .split(" ")
-        .map((part) => part[0])
-        .join("")
-        .slice(0, 3);
       return (
         <div
           style={`top: ${top}px;`}
           class="sticky mb-12 rounded-lg border border-neutral/20 bg-black"
         >
-          <div class="bg-difu relative z-1 grid h-145 w-full grid-rows-2 rounded-lg bg-[#1c232d]/85 before:absolute before:inset-0 before:z-[-1] before:rounded-lg before:bg-[url(/raja.png)] before:bg-size-[128px] before:bg-repeat before:opacity-5 before:content-[''] sm:grid-cols-2 sm:grid-rows-1 md:h-96">
-            <div class="px-6 pt-12">
-              <h3 class="mb-5 font-serif text-3xl font-medium text-primary">
-                {name}
-              </h3>
-              <p class="text-base text-neutral">{summary}</p>
-              {tags ? (
-                <ul class="mt-6 flex flex-wrap gap-2">
-                  {tags.map((tag) => (
-                    <li class="rounded-full border border-primary/30 px-3 py-1 text-xs text-white">
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
+          <div class="relative z-1 rounded-lg bg-[#1c232d]/85 px-6 py-12 before:absolute before:inset-0 before:z-[-1] before:rounded-lg before:bg-[url(/raja.png)] before:bg-size-[128px] before:bg-repeat before:opacity-5 before:content-['']">
+            <h3 class="mb-5 font-serif text-3xl font-medium text-primary">
+              {name}
+            </h3>
+            <p class="max-w-2xl text-base text-neutral">{summary}</p>
+            {tags ? (
+              <ul class="mt-6 flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <li class="rounded-full border border-primary/30 px-3 py-1 text-xs text-white">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <div class="mt-8 flex gap-5 text-white">
+              {linkSource ? (
+                <a
+                  href={linkSource}
+                  target="_blank"
+                  class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
+                >
+                  Source
+                </a>
               ) : null}
-              <div class="flex gap-5 pt-8 text-white">
-                {linkSource ? (
-                  <a
-                    href={linkSource}
-                    target="_blank"
-                    class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
-                  >
-                    Source
-                  </a>
-                ) : null}
-                {linkPreview ? (
-                  <a
-                    href={linkPreview}
-                    target="_blank"
-                    class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
-                  >
-                    Ouvrir
-                  </a>
-                ) : null}
-              </div>
-            </div>
-            <div class="flex items-end justify-end overflow-hidden">
-              {image ? (
-                <Image
-                  class="h-full w-[95%] rounded-ss-xl rounded-ee-lg object-none object-top-left sm:h-[85%] sm:w-full"
-                  src={image}
-                  alt={name}
-                  width="736"
-                  height="483"
-                />
-              ) : (
-                <div class="m-6 flex h-[78%] w-[86%] flex-col justify-between rounded-lg border border-primary/30 bg-black/35 p-6">
-                  <span class="font-serif text-6xl font-bold text-white">
-                    {initials}
-                  </span>
-                  <div class="grid grid-cols-3 gap-2">
-                    <span class="h-2 rounded-full bg-primary" />
-                    <span class="h-2 rounded-full bg-white/50" />
-                    <span class="h-2 rounded-full bg-neutral/60" />
-                  </div>
-                </div>
-              )}
+              {linkPreview ? (
+                <a
+                  href={linkPreview}
+                  target="_blank"
+                  class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
+                >
+                  Ouvrir
+                </a>
+              ) : null}
             </div>
           </div>
         </div>

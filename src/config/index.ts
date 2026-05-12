@@ -84,6 +84,13 @@ export const SITE_CONTENT: SiteContent = {
         "https://huggingface.co/spaces/BobbyBobby01/swiss-real-estate-analyser",
       tags: ["Data", "Scoring", "Immobilier"],
     },
+    {
+      name: "Retractify",
+      summary:
+        "SaaS et plugin WooCommerce pour gérer les demandes de rétractation avec un flux clair, des preuves PDF et un suivi opérationnel.",
+      linkPreview: "https://www.retractify.ch/",
+      tags: ["WooCommerce", "SaaS", "Legal tech"],
+    },
   ],
   about: {
     description: `
