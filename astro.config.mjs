@@ -8,15 +8,17 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.fontsource(),
-      name: "Gabarito",
-      cssVariable: "--font-gabarito",
-      fallbacks: ["ui-serif", "serif"],
+      name: "Space Grotesk",
+      cssVariable: "--font-space-grotesk",
+      fallbacks: ["ui-sans-serif", "system-ui", "sans-serif"],
+      weights: [400, 500, 700],
     },
     {
       provider: fontProviders.fontsource(),
-      name: "Be Vietnam Pro",
-      cssVariable: "--font-be-vietnam-pro",
+      name: "Inter",
+      cssVariable: "--font-inter",
       fallbacks: ["system-ui", "sans-serif"],
+      weights: [400, 500, 600],
     },
   ],
   vite: {

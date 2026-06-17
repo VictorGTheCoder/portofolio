@@ -8,11 +8,22 @@ export interface SiteConfig extends HeaderProps {
   canonicalURL?: string;
 }
 
+export interface ContactProps {
+  email: string;
+}
+
+export interface StackItem {
+  name: string;
+  logo?: string; // chemin /public ou URL ; sinon pastille texte
+}
+
 export interface SiteContent {
   hero: HeroProps;
   experience: ExperienceProps[];
   projects: ProjectProps[];
+  stack: StackItem[];
   about: AboutProps;
+  contact: ContactProps;
 }
 
 export interface HeroProps {

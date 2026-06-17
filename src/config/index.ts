@@ -13,8 +13,10 @@ export const SITE_CONFIG: SiteConfig = {
     { text: "À propos", href: "#about" },
   ],
   socialLinks: [
-    { text: "Polybrain", href: "https://polybrain.ch" },
-    { text: "CheatSheet", href: "https://cheatsheet.ch" },
+    // TODO: remplacer par l'URL réelle
+    { text: "GitHub", href: "https://github.com/USERNAME" },
+    // TODO: remplacer par l'URL réelle
+    { text: "LinkedIn", href: "https://www.linkedin.com/in/USERNAME" },
     {
       text: "Hugging Face",
       href: "https://huggingface.co/spaces/BobbyBobby01/swiss-real-estate-analyser",
@@ -92,6 +94,18 @@ export const SITE_CONTENT: SiteContent = {
       tags: ["WooCommerce", "SaaS", "Legal tech"],
     },
   ],
+  stack: [
+    { name: "Python" },
+    { name: "PyTorch" },
+    { name: "Pandas" },
+    { name: "scikit-learn" },
+    { name: "LLM / RAG" },
+    { name: "TypeScript" },
+    { name: "Astro" },
+    { name: "SQL" },
+    { name: "Git" },
+    { name: "Docker" },
+  ],
   about: {
     description: `
       Je m'appelle Victor Giordani. Mon terrain de jeu est l'intersection entre data science, développement logiciel et produits IA. J'aime partir d'un problème réel, structurer les données disponibles, construire un pipeline fiable, puis rendre le résultat utilisable dans une interface claire.
@@ -99,6 +113,9 @@ export const SITE_CONTENT: SiteContent = {
       Mon parcours combine la base technique exigeante de 42 Lausanne et une formation académique en data science à la HEIG-VD. Mes projets personnels me servent de laboratoire: agents IA, analyse immobilière, génération de supports d'étude et outils web déployés publiquement.
     `,
     image: "/victor-mark.svg",
+  },
+  contact: {
+    email: "vgfxgpt@gmail.com",
   },
 };
 
