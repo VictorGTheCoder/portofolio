@@ -10,32 +10,33 @@ const { experience } = Astro.props;
 ---
 
 <Section text="Parcours" href="experience">
-  {
-    experience.map(({ company, position, startDate, endDate, summary }) => (
-      <div class="mb-10">
-        <h3 class="mb-1.5 font-serif text-2xl font-semibold text-white">
-          {company}
-        </h3>
-        <div class="flex flex-col items-start pb-5">
-          <h4 class="mb-0.5 font-serif text-2xl font-medium text-primary">
-            {position}
-          </h4>
-          <span class="pb-0.5 text-sm text-white/70">
+  <div class="relative border-l border-border pl-8">
+    {
+      experience.map(({ company, position, startDate, endDate, summary }) => (
+        <div class="reveal relative mb-12 last:mb-0">
+          <span class="absolute -left-[2.6rem] top-1.5 h-3 w-3 rounded-full border-2 border-accent bg-bg" />
+          <span class="text-xs font-medium uppercase tracking-tight text-muted">
             {startDate} — {endDate}
           </span>
+          <h3 class="mt-1 font-display text-2xl font-semibold text-fg">
+            {company}
+          </h3>
+          <h4 class="mb-3 font-display text-lg font-medium text-accent">
+            {position}
+          </h4>
+          {Array.isArray(summary) ? (
+            <ul class="space-y-2">
+              {summary.map((log) => (
+                <li class="relative pl-5 text-base text-muted before:absolute before:left-0 before:text-accent before:content-['▸']">
+                  {log}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="text-base text-muted">{summary}</p>
+          )}
         </div>
-        {Array.isArray(summary) ? (
-          <ul class="list-none">
-            {summary.map((log) => (
-              <li class="relative mb-3 pl-8 text-base text-neutral before:absolute before:top-1 before:left-0 before:content-[url(/check.svg)]">
-                {log}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p class="text-base text-neutral">{summary}</p>
-        )}
-      </div>
-    ))
-  }
+      ))
+    }
+  </div>
 </Section>
