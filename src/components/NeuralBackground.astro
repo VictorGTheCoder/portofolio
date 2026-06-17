@@ -1,0 +1,163 @@
+---
+// Réseau de neurones interactif (canvas vanilla, 0 dépendance).
+// Nœuds qui flottent + liens lumineux entre voisins ; la souris attire les
+// nœuds et illumine les connexions autour du curseur.
+// Désactivé / figé en prefers-reduced-motion, en pause hors écran.
+---
+
+<canvas
+  data-neural
+  aria-hidden="true"
+  class="pointer-events-none absolute inset-0 -z-20 h-full w-full"
+></canvas>
+
+<script>
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  const canvasEl = document.querySelector<HTMLCanvasElement>("[data-neural]");
+  const ctxEl = canvasEl?.getContext("2d");
+
+  function init(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+    const ACCENT = "87, 87, 255"; // #5755ff
+    const LINK_DIST = 130;
+    const MOUSE_DIST = 190;
+
+    let width = 0;
+    let height = 0;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let nodes: { x: number; y: number; vx: number; vy: number }[] = [];
+    const mouse = { x: -9999, y: -9999, active: false };
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(90, Math.max(28, Math.floor((width * height) / 14000)));
+      nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+      }));
+    }
+
+    function step() {
+      ctx.clearRect(0, 0, width, height);
+
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > width) n.vx *= -1;
+        if (n.y < 0 || n.y > height) n.vy *= -1;
+        if (mouse.active) {
+          const dx = mouse.x - n.x;
+          const dy = mouse.y - n.y;
+          const d = Math.hypot(dx, dy);
+          if (d < MOUSE_DIST && d > 0.1) {
+            n.x += (dx / d) * 0.45;
+            n.y += (dy / d) * 0.45;
+          }
+        }
+      }
+
+      // Liens entre nœuds voisins
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const d = Math.hypot(dx, dy);
+          if (d < LINK_DIST) {
+            ctx.strokeStyle = `rgba(${ACCENT}, ${(1 - d / LINK_DIST) * 0.45})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Liens vers le curseur
+      if (mouse.active) {
+        for (const n of nodes) {
+          const dx = mouse.x - n.x;
+          const dy = mouse.y - n.y;
+          const d = Math.hypot(dx, dy);
+          if (d < MOUSE_DIST) {
+            ctx.strokeStyle = `rgba(${ACCENT}, ${(1 - d / MOUSE_DIST) * 0.7})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(n.x, n.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Nœuds
+      for (const n of nodes) {
+        ctx.fillStyle = `rgba(${ACCENT}, 0.85)`;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let raf = 0;
+    let running = false;
+    function loop() {
+      step();
+      raf = requestAnimationFrame(loop);
+    }
+    function start() {
+      if (!running) {
+        running = true;
+        loop();
+      }
+    }
+    function stop() {
+      running = false;
+      cancelAnimationFrame(raf);
+    }
+
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    const hero = canvas.closest("section");
+    hero?.addEventListener("mousemove", (e) => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+      mouse.active = true;
+    });
+    hero?.addEventListener("mouseleave", () => {
+      mouse.active = false;
+      mouse.x = -9999;
+      mouse.y = -9999;
+    });
+
+    if (prefersReduced) {
+      step(); // une seule image statique, aucune animation
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => (en.isIntersecting ? start() : stop()));
+        },
+        { threshold: 0 },
+      );
+      io.observe(canvas);
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) stop();
+        else start();
+      });
+    }
+  }
+
+  if (canvasEl && ctxEl) {
+    init(canvasEl, ctxEl);
+  }
+</script>

@@ -1,5 +1,6 @@
 ---
 import type { HeroProps } from "@types";
+import NeuralBackground from "./NeuralBackground.astro";
 type Props = HeroProps;
 
 const { name, specialty, summary } = Astro.props;
@@ -7,9 +8,11 @@ const { name, specialty, summary } = Astro.props;
 
 <section
   id="hero"
-  class="group relative overflow-hidden py-28 md:py-40"
+  class="group relative -mt-20 flex min-h-[88vh] flex-col justify-center overflow-hidden py-28 md:py-40"
   data-spotlight
 >
+  <NeuralBackground />
+
   <div
     aria-hidden="true"
     class="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -22,7 +25,10 @@ const { name, specialty, summary } = Astro.props;
     Disponible pour des projets data & IA
   </p>
 
-  <h1 class="reveal mb-3 font-display text-6xl font-bold tracking-tightest text-fg sm:text-7xl md:text-8xl">
+  <h1
+    data-scramble
+    class="reveal mb-3 font-display text-6xl font-bold tracking-tightest text-fg sm:text-7xl md:text-8xl"
+  >
     {name}
   </h1>
   <p class="reveal mb-8 font-display text-3xl font-bold tracking-tighter text-accent sm:text-4xl md:text-5xl">
@@ -59,5 +65,28 @@ const { name, specialty, summary } = Astro.props;
       hero.style.setProperty("--mx", `${e.clientX - r.left}px`);
       hero.style.setProperty("--my", `${e.clientY - r.top}px`);
     });
+
+    // Effet "décryptage" sur le nom au chargement
+    const el = document.querySelector<HTMLElement>("[data-scramble]");
+    if (el) {
+      const final = el.textContent ?? "";
+      const glyphs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/[]{}#%&";
+      let frame = 0;
+      const settle = 3; // frames avant qu'une lettre se fige
+      const render = () => {
+        let out = "";
+        for (let i = 0; i < final.length; i++) {
+          const ch = final[i];
+          if (ch === " ") out += " ";
+          else if (frame / settle > i) out += ch;
+          else out += glyphs[Math.floor(Math.random() * glyphs.length)];
+        }
+        el.textContent = out;
+        frame++;
+        if (frame / settle <= final.length) requestAnimationFrame(render);
+        else el.textContent = final;
+      };
+      render();
+    }
   }
 </script>
