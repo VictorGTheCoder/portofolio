@@ -8,9 +8,11 @@ export const SITE_CONFIG: SiteConfig = {
   lang: "fr",
   siteLogo: "/victor-mark.svg",
   navLinks: [
-    { text: "Parcours", href: "#experience" },
     { text: "Projets", href: "#projects" },
+    { text: "Stack", href: "#stack" },
+    { text: "Parcours", href: "#experience" },
     { text: "À propos", href: "#about" },
+    { text: "Contact", href: "#contact" },
   ],
   socialLinks: [
     // TODO: remplacer par l'URL réelle
