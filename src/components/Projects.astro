@@ -10,51 +10,78 @@ const { projects } = Astro.props;
 ---
 
 <Section text="Projets" href="projects">
-  {
-    projects.map(({ name, summary, linkPreview, linkSource, tags }, index) => {
-      const top = 98 + index * 40;
-      return (
-        <div
-          style={`top: ${top}px;`}
-          class="sticky mb-12 rounded-lg border border-neutral/20 bg-black"
+  <div class="grid gap-6 sm:grid-cols-2">
+    {
+      projects.map(({ name, summary, linkPreview, linkSource, tags }) => (
+        <article
+          data-tilt
+          class="reveal group glass relative overflow-hidden rounded-2xl p-6 transition-transform duration-200 will-change-transform"
         >
-          <div class="relative z-1 rounded-lg bg-[#1c232d]/85 px-6 py-12 before:absolute before:inset-0 before:z-[-1] before:rounded-lg before:bg-[url(/raja.png)] before:bg-size-[128px] before:bg-repeat before:opacity-5 before:content-['']">
-            <h3 class="mb-5 font-serif text-3xl font-medium text-primary">
-              {name}
-            </h3>
-            <p class="max-w-2xl text-base text-neutral">{summary}</p>
-            {tags ? (
-              <ul class="mt-6 flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <li class="rounded-full border border-primary/30 px-3 py-1 text-xs text-white">
-                    {tag}
-                  </li>
-                ))}
-              </ul>
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            style="background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 70%);"
+          />
+          <h3 class="relative mb-3 font-display text-2xl font-medium text-fg">
+            {name}
+          </h3>
+          <p class="relative mb-5 text-base text-muted">{summary}</p>
+          {tags ? (
+            <ul class="relative mb-5 flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <li class="rounded-full border border-accent/30 px-3 py-1 text-xs text-accent-soft">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <div class="relative flex gap-5 text-sm font-medium">
+            {linkSource ? (
+              <a
+                href={linkSource}
+                target="_blank"
+                rel="noopener"
+                class="text-fg hover:text-accent"
+              >
+                Source ↗
+              </a>
             ) : null}
-            <div class="mt-8 flex gap-5 text-white">
-              {linkSource ? (
-                <a
-                  href={linkSource}
-                  target="_blank"
-                  class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
-                >
-                  Source
-                </a>
-              ) : null}
-              {linkPreview ? (
-                <a
-                  href={linkPreview}
-                  target="_blank"
-                  class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
-                >
-                  Ouvrir
-                </a>
-              ) : null}
-            </div>
+            {linkPreview ? (
+              <a
+                href={linkPreview}
+                target="_blank"
+                rel="noopener"
+                class="text-fg hover:text-accent"
+              >
+                Ouvrir ↗
+              </a>
+            ) : null}
           </div>
-        </div>
-      );
-    })
-  }
+        </article>
+      ))
+    }
+  </div>
 </Section>
+
+<script>
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  if (!prefersReduced) {
+    document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        card.style.setProperty("--mx", `${x}px`);
+        card.style.setProperty("--my", `${y}px`);
+        const rx = ((y / r.height) - 0.5) * -6;
+        const ry = ((x / r.width) - 0.5) * 6;
+        card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    });
+  }
+</script>
