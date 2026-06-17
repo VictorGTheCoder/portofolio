@@ -8,7 +8,8 @@ const { siteLogo, navLinks } = Astro.props;
 ---
 
 <header
-  class="sticky top-0 z-50 mx-auto flex max-w-5xl animate-slide-in justify-between bg-black px-5 py-6"
+  id="site-header"
+  class="sticky top-0 z-50 mx-auto flex max-w-5xl items-center justify-between border-b border-transparent px-5 py-5 transition-all duration-300"
 >
   <a href="/" aria-label="Home link">
     <img
@@ -31,7 +32,7 @@ const { siteLogo, navLinks } = Astro.props;
   </button>
 
   <nav
-    class="absolute top-20 right-5 hidden rounded-xl border border-neutral/40 bg-black px-4 py-5 text-neutral sm:static sm:block sm:border-0 sm:bg-transparent sm:p-0"
+    class="absolute top-20 right-5 hidden rounded-xl border border-border bg-surface px-4 py-5 text-muted sm:static sm:block sm:border-0 sm:bg-transparent sm:p-0"
     id="main-menu"
   >
     <ul class="gap-2 sm:flex">
@@ -39,7 +40,7 @@ const { siteLogo, navLinks } = Astro.props;
         navLinks.map((link) => (
           <li class="relative">
             <a
-              class={`nav-item relative block p-2 text-sm font-medium transition-all duration-500 after:absolute after:bottom-0 after:left-2/4 after:h-2 after:w-1 after:-translate-x-2/4 after:text-primary after:opacity-0 after:content-['•'] hover:text-white`}
+              class={`nav-item relative block p-2 text-sm font-medium transition-all duration-500 after:absolute after:bottom-0 after:left-2/4 after:h-2 after:w-1 after:-translate-x-2/4 after:text-accent after:opacity-0 after:content-['•'] hover:text-fg`}
               href={link.href}
             >
               {link.text}
@@ -52,6 +53,15 @@ const { siteLogo, navLinks } = Astro.props;
 </header>
 
 <script>
+  // Scroll handler for glass blur effect
+  const header = document.querySelector("#site-header");
+  const onScroll = () => {
+    if (window.scrollY > 24) header?.classList.add("scrolled");
+    else header?.classList.remove("scrolled");
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
   // Toggle mobile menu
   const button = document.querySelector("#menu-button");
   const menu = document.querySelector("#main-menu");
@@ -75,9 +85,9 @@ const { siteLogo, navLinks } = Astro.props;
         if (entry.isIntersecting) {
           navItems.forEach((item) => {
             if (item.getAttribute("href") === `#${entry.target.id}`) {
-              item.classList.add("text-white", "md:after:opacity-100");
+              item.classList.add("text-fg", "md:after:opacity-100");
             } else {
-              item.classList.remove("text-white", "md:after:opacity-100");
+              item.classList.remove("text-fg", "md:after:opacity-100");
             }
           });
         }
@@ -103,8 +113,9 @@ const { siteLogo, navLinks } = Astro.props;
 </script>
 
 <style>
-  header {
-    animation-timeline: scroll();
-    animation-range: 0 650px;
+  #site-header.scrolled {
+    background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom-color: var(--color-border);
   }
 </style>
