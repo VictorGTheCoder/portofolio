@@ -15,17 +15,14 @@ export const SITE_CONFIG: SiteConfig = {
     { text: "Contact", href: "#contact" },
   ],
   socialLinks: [
-    // TODO: remplacer par l'URL réelle
-    { text: "GitHub", href: "https://github.com/USERNAME" },
-    // TODO: remplacer par l'URL réelle
-    { text: "LinkedIn", href: "https://www.linkedin.com/in/USERNAME" },
+    { text: "GitHub", href: "https://github.com/VictorGTheCoder" },
     {
       text: "Hugging Face",
-      href: "https://huggingface.co/spaces/BobbyBobby01/swiss-real-estate-analyser",
+      href: "https://huggingface.co/BobbyBobby01",
     },
   ],
-  socialImage: "/victor-mark.svg",
-  canonicalURL: "https://polybrain.ch",
+  socialImage: "/zen-og.png",
+  canonicalURL: "https://www.victorgiordani.ch/",
 };
 
 export const SITE_CONTENT: SiteContent = {
@@ -97,16 +94,16 @@ export const SITE_CONTENT: SiteContent = {
     },
   ],
   stack: [
-    { name: "Python" },
-    { name: "PyTorch" },
-    { name: "Pandas" },
-    { name: "scikit-learn" },
-    { name: "LLM / RAG" },
-    { name: "TypeScript" },
-    { name: "Astro" },
-    { name: "SQL" },
-    { name: "Git" },
-    { name: "Docker" },
+    { name: "Python", logo: "https://cdn.simpleicons.org/python" },
+    { name: "PyTorch", logo: "https://cdn.simpleicons.org/pytorch" },
+    { name: "Pandas", logo: "https://cdn.simpleicons.org/pandas" },
+    { name: "scikit-learn", logo: "https://cdn.simpleicons.org/scikitlearn" },
+    { name: "LLM / RAG", logo: "https://cdn.simpleicons.org/openai" },
+    { name: "TypeScript", logo: "https://cdn.simpleicons.org/typescript" },
+    { name: "Astro", logo: "https://cdn.simpleicons.org/astro" },
+    { name: "SQL", logo: "https://cdn.simpleicons.org/postgresql" },
+    { name: "Git", logo: "https://cdn.simpleicons.org/git" },
+    { name: "Docker", logo: "https://cdn.simpleicons.org/docker" },
   ],
   about: {
     description: `
@@ -117,7 +114,7 @@ export const SITE_CONTENT: SiteContent = {
     image: "/victor-mark.svg",
   },
   contact: {
-    email: "vgfxgpt@gmail.com",
+    email: "victor.giordani@protonmail.com",
   },
 };
 

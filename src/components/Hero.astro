@@ -8,7 +8,7 @@ const { name, specialty, summary } = Astro.props;
 
 <section
   id="hero"
-  class="group relative -mt-20 flex min-h-[88vh] flex-col justify-center overflow-hidden py-28 md:py-40"
+  class="group relative isolate -mt-20 w-screen mx-[calc(50%-50vw)] flex min-h-[88vh] flex-col justify-center overflow-hidden py-28 md:py-40"
   data-spotlight
 >
   <NeuralBackground />
@@ -20,37 +20,40 @@ const { name, specialty, summary } = Astro.props;
   >
   </div>
 
-  <p class="reveal mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-medium text-muted">
-    <span class="h-2 w-2 rounded-full bg-accent"></span>
-    Disponible pour des projets data & IA
-  </p>
-
-  <h1
-    data-scramble
-    class="reveal mb-3 font-display text-6xl font-bold tracking-tightest text-fg sm:text-7xl md:text-8xl"
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-bg to-transparent md:h-64"
   >
-    {name}
-  </h1>
-  <p class="reveal mb-8 font-display text-3xl font-bold tracking-tighter text-accent sm:text-4xl md:text-5xl">
-    {specialty}
-  </p>
-  <p class="reveal mb-12 max-w-2xl text-base text-muted md:text-lg">
-    {summary}
-  </p>
+  </div>
 
-  <div class="reveal flex flex-wrap gap-4">
-    <a
-      href="#projects"
-      class="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:scale-105 hover:bg-accent-soft"
+  <div class="mx-auto w-full max-w-5xl px-5">
+    <h1
+      data-scramble
+      class="reveal mb-3 font-display text-6xl font-bold tracking-tightest text-fg sm:text-7xl md:text-8xl"
     >
-      Voir mes projets
-    </a>
-    <a
-      href="#contact"
-      class="rounded-full border border-border px-6 py-3 text-sm font-semibold text-fg transition-colors duration-200 hover:border-accent hover:text-accent"
-    >
-      Me contacter
-    </a>
+      {name}
+    </h1>
+    <p class="reveal mb-8 font-display text-3xl font-bold tracking-tighter text-accent sm:text-4xl md:text-5xl">
+      {specialty}
+    </p>
+    <p class="reveal mb-12 max-w-2xl text-base text-muted md:text-lg">
+      {summary}
+    </p>
+
+    <div class="reveal flex flex-wrap gap-4">
+      <a
+        href="#projects"
+        class="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:scale-105 hover:bg-accent-soft"
+      >
+        Voir mes projets
+      </a>
+      <a
+        href="#contact"
+        class="rounded-full border border-border px-6 py-3 text-sm font-semibold text-fg transition-colors duration-200 hover:border-accent hover:text-accent"
+      >
+        Me contacter
+      </a>
+    </div>
   </div>
 </section>
 

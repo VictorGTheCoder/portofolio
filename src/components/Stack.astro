@@ -18,7 +18,10 @@ const items = [...stack, ...stack];
   <div
     class="reveal relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
   >
-    <ul class="flex w-max animate-marquee gap-4 hover:[animation-play-state:paused]">
+    <ul
+      id="stack-marquee"
+      class="flex w-max animate-marquee gap-4 hover:[animation-play-state:paused]"
+    >
       {
         items.map((item) => (
           <li class="glass flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-fg">
@@ -40,3 +43,12 @@ const items = [...stack, ...stack];
     </ul>
   </div>
 </section>
+
+<script>
+  // Pause/reprise au tap sur mobile/tactile (le hover ne s'applique pas)
+  const marquee = document.querySelector<HTMLElement>("#stack-marquee");
+  marquee?.addEventListener("click", () => {
+    const paused = marquee.style.animationPlayState === "paused";
+    marquee.style.animationPlayState = paused ? "running" : "paused";
+  });
+</script>

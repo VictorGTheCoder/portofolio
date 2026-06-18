@@ -17,7 +17,7 @@ const { siteLogo, navLinks } = Astro.props;
       src={siteLogo}
       width="45"
       height="45"
-      alt="website logo"
+      alt="Logo Victor Giordani"
     />
   </a>
 
@@ -78,6 +78,19 @@ const { siteLogo, navLinks } = Astro.props;
     item?.addEventListener("click", toggleMenu);
   });
 
+  // Fermer le menu mobile au clic en dehors
+  document.addEventListener("click", (e) => {
+    const isOpen = !menu?.classList.contains("hidden");
+    const target = e.target as Node;
+    if (
+      isOpen &&
+      !menu?.contains(target) &&
+      !button?.contains(target)
+    ) {
+      toggleMenu();
+    }
+  });
+
   // Update navigation based on scroll position with Intersection Observer
   const observer = new IntersectionObserver(
     (entries) => {
@@ -85,9 +98,9 @@ const { siteLogo, navLinks } = Astro.props;
         if (entry.isIntersecting) {
           navItems.forEach((item) => {
             if (item.getAttribute("href") === `#${entry.target.id}`) {
-              item.classList.add("text-fg", "md:after:opacity-100");
+              item.classList.add("text-fg", "sm:after:opacity-100");
             } else {
-              item.classList.remove("text-fg", "md:after:opacity-100");
+              item.classList.remove("text-fg", "sm:after:opacity-100");
             }
           });
         }
