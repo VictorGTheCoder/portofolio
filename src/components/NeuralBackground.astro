@@ -3,7 +3,6 @@
 // Nœuds qui flottent + liens lumineux entre voisins ; la souris attire les
 // nœuds et illumine les connexions autour du curseur.
 // Désactivé / figé en prefers-reduced-motion, en pause hors écran.
-const english = Astro.url.pathname.startsWith("/en");
 ---
 
 <canvas
@@ -11,17 +10,6 @@ const english = Astro.url.pathname.startsWith("/en");
   aria-hidden="true"
   class="pointer-events-none absolute inset-0 -z-20 h-full w-full"
 ></canvas>
-
-<button
-  type="button"
-  data-motion-toggle
-  data-pause-label={english ? "Pause background animation" : "Mettre en pause l’animation"}
-  data-resume-label={english ? "Resume background animation" : "Reprendre l’animation"}
-  class="absolute right-5 bottom-5 z-10 rounded-full border border-border bg-surface/80 px-3 py-2 text-xs font-medium text-muted transition-colors hover:text-fg motion-reduce:transition-none"
-  hidden
->
-  {english ? "Pause background animation" : "Mettre en pause l’animation"}
-</button>
 
 <script>
   const prefersReduced = window.matchMedia(
@@ -40,10 +28,6 @@ const english = Astro.url.pathname.startsWith("/en");
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let nodes: { x: number; y: number; vx: number; vy: number }[] = [];
     const mouse = { x: -9999, y: -9999, active: false };
-    let userPaused = false;
-    const motionToggle = canvas
-      .closest("section")
-      ?.querySelector<HTMLButtonElement>("[data-motion-toggle]");
 
     function resize() {
       const rect = canvas.getBoundingClientRect();
@@ -130,7 +114,7 @@ const english = Astro.url.pathname.startsWith("/en");
       raf = requestAnimationFrame(loop);
     }
     function start() {
-      if (!running && !userPaused) {
+      if (!running) {
         running = true;
         loop();
       }
@@ -159,18 +143,6 @@ const english = Astro.url.pathname.startsWith("/en");
     if (prefersReduced) {
       step(); // une seule image statique, aucune animation
     } else {
-      if (motionToggle) {
-        motionToggle.hidden = false;
-        motionToggle.addEventListener("click", () => {
-          userPaused = !userPaused;
-          motionToggle.textContent = userPaused
-            ? motionToggle.dataset.resumeLabel ?? "Resume background animation"
-            : motionToggle.dataset.pauseLabel ?? "Pause background animation";
-          if (userPaused) stop();
-          else start();
-        });
-      }
-
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((en) => (en.isIntersecting ? start() : stop()));
