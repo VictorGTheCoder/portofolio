@@ -83,8 +83,10 @@ export const SITE_CONTENT: SiteContent = {
   projects: [
     {
       name: "Sterna",
-      summary: "Projet personnel en cours de développement.",
-      tags: ["Projet personnel"],
+      summary:
+        "Application mobile qui transforme les photos géolocalisées en cartes personnelles et partagées de découvertes de voyage.",
+      linkPreview: "https://www.sterna-app.ch/",
+      tags: ["Voyage", "Cartographie", "Mobile"],
     },
     {
       name: "Polybrain",
@@ -181,8 +183,10 @@ export const SITE_CONTENT_EN: SiteContent = {
   projects: [
     {
       name: "Sterna",
-      summary: "Personal project in development.",
-      tags: ["Personal project"],
+      summary:
+        "A mobile app that turns geolocated photos into personal and shared maps of travel discoveries.",
+      linkPreview: "https://www.sterna-app.ch/",
+      tags: ["Travel", "Maps", "Mobile"],
     },
     {
       name: "Polybrain",
