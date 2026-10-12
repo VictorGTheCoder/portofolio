@@ -123,7 +123,7 @@ export const SITE_CONTENT: SiteContent = {
     { name: "PyTorch", logo: "https://cdn.simpleicons.org/pytorch" },
     { name: "Pandas", logo: "https://cdn.simpleicons.org/pandas" },
     { name: "scikit-learn", logo: "https://cdn.simpleicons.org/scikitlearn" },
-    { name: "LLM / RAG", logo: "https://cdn.simpleicons.org/openai" },
+    { name: "LLM / RAG", logo: "/brain-circuit.svg" },
     { name: "TypeScript", logo: "https://cdn.simpleicons.org/typescript" },
     { name: "Astro", logo: "https://cdn.simpleicons.org/astro" },
     { name: "SQL", logo: "https://cdn.simpleicons.org/postgresql" },

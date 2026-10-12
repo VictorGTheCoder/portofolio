@@ -30,7 +30,7 @@ const { projects, lang } = Astro.props;
               ))}
             </ul>
           ) : null}
-          <div class="mt-auto flex items-center justify-between gap-5 pt-4 text-sm font-medium">
+          <div class="mt-auto flex items-center justify-start gap-5 pt-4 text-sm font-medium">
             {linkSource ? (
               <a
                 href={linkSource}
@@ -41,7 +41,7 @@ const { projects, lang } = Astro.props;
               >
                 Source ↗
               </a>
-            ) : <span aria-hidden="true" />}
+            ) : null}
             {linkPreview ? (
               <a
                 href={linkPreview}
