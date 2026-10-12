@@ -88,6 +88,35 @@ body {
   filter: brightness(0.9);
 }
 
+.stack-marquee-viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.stack-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: stack-marquee 30s linear infinite;
+}
+
+.stack-marquee-copy {
+  display: flex;
+  flex: none;
+  gap: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+@keyframes stack-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.stack-marquee-viewport:hover .stack-marquee-track,
+.stack-marquee-viewport:focus-within .stack-marquee-track {
+  animation-play-state: paused;
+}
+
 /* Halo radial glow réutilisable (positionné par l'élément parent) */
 .glow-radial {
   background: radial-gradient(
@@ -106,6 +135,24 @@ body {
 
   .skip-link {
     transition: none;
+  }
+
+  .stack-marquee-viewport {
+    overflow: visible;
+    mask-image: none;
+  }
+
+  .stack-marquee-track {
+    width: auto;
+    animation: none;
+  }
+
+  .stack-marquee-copy {
+    flex-wrap: wrap;
+  }
+
+  .stack-marquee-copy[aria-hidden="true"] {
+    display: none;
   }
 }
 

@@ -6,6 +6,8 @@ interface Props {
 }
 
 const { stack } = Astro.props;
+// Duplicate the items so the marquee can loop without a visible jump.
+const copies = [stack, stack];
 ---
 
 <section id="stack" class="py-24">
@@ -13,26 +15,35 @@ const { stack } = Astro.props;
     Stack
   </h2>
 
-  <ul class="flex flex-wrap gap-3">
-    {
-      stack.map((item) => (
-        <li class="glass flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-fg">
-          {item.logo ? (
-            <img
-              src={item.logo}
-              alt=""
-              aria-hidden="true"
-              width="20"
-              height="20"
-              loading="lazy"
-              class="h-5 w-5 object-contain"
-            />
-          ) : (
-            <span class="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
-          )}
-          {item.name}
-        </li>
-      ))
-    }
-  </ul>
+  <div class="stack-marquee-viewport" data-stack-marquee>
+    <div class="stack-marquee-track">
+      {
+        copies.map((copy, index) => (
+          <ul
+            class="stack-marquee-copy"
+            aria-hidden={index === 1 ? "true" : undefined}
+          >
+            {copy.map((item) => (
+              <li class="glass flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-fg">
+                {item.logo ? (
+                  <img
+                    src={item.logo}
+                    alt=""
+                    aria-hidden="true"
+                    width="20"
+                    height="20"
+                    loading="lazy"
+                    class="h-5 w-5 object-contain"
+                  />
+                ) : (
+                  <span class="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
+                )}
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
 </section>
