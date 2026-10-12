@@ -1,0 +1,21 @@
+---
+import { SITE_CONFIG_EN, SITE_CONTENT_EN } from "@config";
+import Hero from "@components/Hero.astro";
+import Layout from "@layouts/Layout.astro";
+import Projects from "@components/Projects.astro";
+import Stack from "@components/Stack.astro";
+import Experience from "@components/Experience.astro";
+import About from "@components/About.astro";
+import Contact from "@components/Contact.astro";
+
+import "../../styles/global.css";
+---
+
+<Layout>
+  <Hero {...SITE_CONTENT_EN.hero} />
+  <Projects projects={SITE_CONTENT_EN.projects} lang="en" />
+  <Stack stack={SITE_CONTENT_EN.stack} />
+  <Experience experience={SITE_CONTENT_EN.experience} lang="en" />
+  <About {...SITE_CONTENT_EN.about} name={SITE_CONTENT_EN.hero.name} />
+  <Contact email={SITE_CONTENT_EN.contact.email} socialLinks={SITE_CONFIG_EN.socialLinks} />
+</Layout>

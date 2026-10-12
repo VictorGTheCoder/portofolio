@@ -4,7 +4,7 @@ import type { HeaderProps } from "@types";
 
 type Props = HeaderProps;
 
-const { siteLogo, navLinks } = Astro.props;
+const { siteLogo, navLinks, lang, languageHref } = Astro.props;
 ---
 
 <header
@@ -50,6 +50,14 @@ const { siteLogo, navLinks } = Astro.props;
       }
     </ul>
   </nav>
+  <a
+    href={languageHref}
+    data-language-choice={lang === "fr" ? "en" : "fr"}
+    aria-label={lang === "fr" ? "Switch to English" : "Passer en français"}
+    class="ml-4 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-muted transition-colors hover:border-accent hover:text-accent"
+  >
+    {lang === "fr" ? "EN" : "FR"}
+  </a>
 </header>
 
 <script>
@@ -74,6 +82,10 @@ const { siteLogo, navLinks } = Astro.props;
   };
 
   button?.addEventListener("click", toggleMenu);
+  document.querySelector<HTMLAnchorElement>("[data-language-choice]")?.addEventListener("click", (event) => {
+    const choice = (event.currentTarget as HTMLAnchorElement).dataset.languageChoice;
+    if (choice) localStorage.setItem("portfolio-language", choice);
+  });
   navItems.forEach((item) => {
     item?.addEventListener("click", toggleMenu);
   });

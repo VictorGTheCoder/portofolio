@@ -4,12 +4,13 @@ import type { ProjectProps } from "@types";
 
 interface Props {
   projects: ProjectProps[];
+  lang: "fr" | "en";
 }
 
-const { projects } = Astro.props;
+const { projects, lang } = Astro.props;
 ---
 
-<Section text="Projets" href="projects">
+<Section text={lang === "fr" ? "Projets" : "Projects"} href="projects">
   <div class="grid gap-6 sm:grid-cols-2">
     {
       projects.map(({ name, summary, linkPreview, linkSource, tags }) => (
@@ -53,7 +54,7 @@ const { projects } = Astro.props;
                 rel="noopener"
                 class="text-fg hover:text-accent"
               >
-                Ouvrir ↗
+                {lang === "fr" ? "Ouvrir ↗" : "Visit ↗"}
               </a>
             ) : null}
           </div>

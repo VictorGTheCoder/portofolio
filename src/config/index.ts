@@ -14,6 +14,7 @@ export const SITE_CONFIG: SiteConfig = {
     { text: "À propos", href: "#about" },
     { text: "Contact", href: "#contact" },
   ],
+  languageHref: "/en/",
   socialLinks: [
     { text: "GitHub", href: "https://github.com/VictorGTheCoder" },
     {
@@ -23,6 +24,23 @@ export const SITE_CONFIG: SiteConfig = {
   ],
   socialImage: "/zen-og.png",
   canonicalURL: "https://www.victorgiordani.ch/",
+};
+
+export const SITE_CONFIG_EN: SiteConfig = {
+  ...SITE_CONFIG,
+  title: "Victor Giordani — Data Science & AI",
+  description:
+    "Victor Giordani's portfolio. Data science student at HEIG-VD, trained in the 42 Lausanne core curriculum, building product-focused AI projects.",
+  lang: "en",
+  canonicalURL: "https://www.victorgiordani.ch/en/",
+  navLinks: [
+    { text: "Projects", href: "#projects" },
+    { text: "Stack", href: "#stack" },
+    { text: "Experience", href: "#experience" },
+    { text: "About", href: "#about" },
+    { text: "Contact", href: "#contact" },
+  ],
+  languageHref: "/",
 };
 
 export const SITE_CONTENT: SiteContent = {
@@ -63,6 +81,11 @@ export const SITE_CONTENT: SiteContent = {
     },
   ],
   projects: [
+    {
+      name: "Sterna",
+      summary: "Projet personnel en cours de développement.",
+      tags: ["Projet personnel"],
+    },
     {
       name: "Polybrain",
       summary:
@@ -116,6 +139,91 @@ export const SITE_CONTENT: SiteContent = {
   contact: {
     email: "victor.giordani@protonmail.com",
   },
+};
+
+export const SITE_CONTENT_EN: SiteContent = {
+  hero: {
+    name: "Victor Giordani",
+    specialty: "Data Science & AI Products",
+    summary:
+      "Data science student at HEIG-VD, with a background in the 42 Lausanne core curriculum. I build practical tools around AI, data analysis, and automation.",
+  },
+  experience: [
+    {
+      company: "HEIG-VD",
+      position: "Data Science Student",
+      startDate: "Current",
+      endDate: "In progress",
+      summary: [
+        "Studies in statistics, machine learning, software engineering, and data analysis.",
+        "Especially interested in useful AI systems: search, scoring, automation, and straightforward interfaces.",
+      ],
+    },
+    {
+      company: "42 Lausanne",
+      position: "Core Curriculum",
+      startDate: "Before HEIG",
+      endDate: "Completed",
+      summary: [
+        "Project-based learning in C, algorithms, data structures, Unix, and disciplined software development.",
+        "Independent work, peer learning, and solving problems under constraints.",
+      ],
+    },
+    {
+      company: "Personal Projects",
+      position: "Data & AI Product Builder",
+      startDate: "Alongside studies",
+      endDate: "Ongoing",
+      summary:
+        "Building products such as Polybrain, CheatSheet, and Swiss Real Estate Analyser, with a focus on usefulness, automation, and user experience.",
+    },
+  ],
+  projects: [
+    {
+      name: "Sterna",
+      summary: "Personal project in development.",
+      tags: ["Personal project"],
+    },
+    {
+      name: "Polybrain",
+      summary:
+        "An AI web assistant designed as a workspace, with conversations, productivity tools, and an interface for everyday use.",
+      linkPreview: "https://polybrain.ch",
+      tags: ["AI", "Web product", "Automation"],
+    },
+    {
+      name: "CheatSheet.ch",
+      summary:
+        "A study-sheet generator that turns documents into structured, exportable notes that are easy to review.",
+      linkPreview: "https://cheatsheet.ch",
+      tags: ["EdTech", "PDF", "LLM"],
+    },
+    {
+      name: "Swiss Real Estate Analyser",
+      summary:
+        "A Swiss property analyser that ranks listings against practical criteria: budget, location, quality, and market potential.",
+      linkPreview:
+        "https://huggingface.co/spaces/BobbyBobby01/swiss-real-estate-analyser",
+      tags: ["Data", "Scoring", "Real estate"],
+    },
+    {
+      name: "Retractify",
+      summary:
+        "A SaaS and WooCommerce plugin for handling withdrawal requests with a clear workflow, PDF evidence, and operational tracking.",
+      linkPreview: "https://www.retractify.ch/",
+      tags: ["WooCommerce", "SaaS", "Legal tech"],
+    },
+  ],
+  stack: SITE_CONTENT.stack,
+  about: {
+    description: `
+      I'm Victor Giordani. I work at the intersection of data science, software development, and AI products. I like starting with a real problem, organizing the available data, building a reliable pipeline, and making the result useful through a clear interface.
+
+      My background combines the demanding technical foundation of 42 Lausanne with academic studies in data science at HEIG-VD. My personal projects are a place to experiment with AI agents, property analysis, study material generation, and publicly available web tools.
+    `,
+    image: "/victor-mark.svg",
+  },
+  contact: { email: "victor.giordani@protonmail.com" },
 };
 
 // #5755ff
