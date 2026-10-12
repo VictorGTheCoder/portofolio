@@ -1,29 +1,17 @@
 ---
 import Section from "./Section.astro";
-import type { AboutProps, HeroProps } from "@types";
+import type { AboutProps } from "@types";
 
-type Props = AboutProps & Pick<HeroProps, "name">;
+type Props = AboutProps;
 
-const { description, image, name } = Astro.props;
+const { description } = Astro.props;
 const english = Astro.url.pathname.startsWith("/en");
 ---
 
 <Section text={english ? "About" : "À propos"} href="about">
-  <div class="flex flex-col items-center gap-12 md:flex-row md:items-start md:gap-12">
-    <p class="reveal whitespace-pre-line text-base leading-relaxed text-muted md:flex-1">
+  <div class="max-w-3xl">
+    <p class="whitespace-pre-line text-base leading-relaxed text-muted">
       {description}
     </p>
-    <div class="reveal relative shrink-0">
-      <div class="glow-radial absolute inset-0 -z-10 opacity-40"></div>
-      <div class="glass h-72 w-60 rounded-2xl p-3">
-        <img
-          class="h-full w-full rounded-xl object-cover"
-          src={image}
-          width="240"
-          height="288"
-          alt={name}
-        />
-      </div>
-    </div>
   </div>
 </Section>

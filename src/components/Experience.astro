@@ -14,7 +14,7 @@ const { experience, lang } = Astro.props;
   <div class="relative border-l border-border pl-8">
     {
       experience.map(({ company, position, startDate, endDate, summary }) => (
-        <div class="reveal relative mb-12 last:mb-0">
+        <div class="relative mb-12 last:mb-0">
           <span class="absolute -left-[2.6rem] top-1.5 h-3 w-3 rounded-full border-2 border-accent bg-bg" />
           <span class="text-xs font-medium uppercase tracking-tight text-muted">
             {startDate} — {endDate}

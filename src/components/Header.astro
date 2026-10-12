@@ -9,9 +9,12 @@ const { siteLogo, navLinks, lang, languageHref } = Astro.props;
 
 <header
   id="site-header"
-  class="sticky top-0 z-50 mx-auto flex max-w-5xl items-center justify-between border-b border-transparent px-5 py-5 transition-all duration-300"
+  class="sticky top-0 z-50 mx-auto flex max-w-5xl items-center justify-between border-b border-transparent px-5 py-5 transition-colors duration-300 motion-reduce:transition-none"
 >
-  <a href="/" aria-label="Home link">
+  <a
+    href="/"
+    aria-label={lang === "fr" ? "Accueil — Victor Giordani" : "Victor Giordani home"}
+  >
     <img
       class="h-11 w-11 rounded-full"
       src={siteLogo}
@@ -24,7 +27,10 @@ const { siteLogo, navLinks, lang, languageHref } = Astro.props;
   <button
     type="button"
     id="menu-button"
-    class="px-1.5 text-muted sm:hidden"
+    class="flex min-h-11 min-w-11 items-center justify-center rounded-full text-muted transition-colors hover:text-fg motion-safe:active:scale-95 sm:hidden"
+    aria-label={lang === "fr" ? "Ouvrir le menu" : "Open menu"}
+    data-open-label={lang === "fr" ? "Ouvrir le menu" : "Open menu"}
+    data-close-label={lang === "fr" ? "Fermer le menu" : "Close menu"}
     aria-expanded="false"
     aria-controls="main-menu"
   >
@@ -40,7 +46,7 @@ const { siteLogo, navLinks, lang, languageHref } = Astro.props;
         navLinks.map((link) => (
           <li class="relative">
             <a
-              class={`nav-item relative block p-2 text-sm font-medium transition-all duration-500 after:absolute after:bottom-0 after:left-2/4 after:h-2 after:w-1 after:-translate-x-2/4 after:text-accent after:opacity-0 after:content-['•'] hover:text-fg`}
+              class="nav-item relative block p-2 text-sm font-medium transition-colors duration-200 after:absolute after:bottom-0 after:left-2/4 after:h-2 after:w-1 after:-translate-x-2/4 after:text-accent after:opacity-0 after:transition-opacity after:duration-200 after:content-['•'] hover:text-fg motion-reduce:transition-none motion-reduce:after:transition-none"
               href={link.href}
             >
               {link.text}
@@ -71,23 +77,32 @@ const { siteLogo, navLinks, lang, languageHref } = Astro.props;
   window.addEventListener("scroll", onScroll, { passive: true });
 
   // Toggle mobile menu
-  const button = document.querySelector("#menu-button");
+  const button = document.querySelector<HTMLButtonElement>("#menu-button");
   const menu = document.querySelector("#main-menu");
   const navItems = document.querySelectorAll("#main-menu > ul > li > a");
 
-  const toggleMenu = () => {
-    menu?.classList.toggle("hidden");
-    const isHidden = menu?.classList.contains("hidden");
-    button?.setAttribute("aria-expanded", `${!isHidden}`);
+  const setMenuOpen = (open: boolean) => {
+    menu?.classList.toggle("hidden", !open);
+    button?.setAttribute("aria-expanded", String(open));
+    button?.setAttribute(
+      "aria-label",
+      open
+        ? (button.dataset.closeLabel ?? "Close menu")
+        : (button.dataset.openLabel ?? "Open menu"),
+    );
   };
 
-  button?.addEventListener("click", toggleMenu);
+  button?.addEventListener("click", () => {
+    setMenuOpen(button.getAttribute("aria-expanded") !== "true");
+  });
   document.querySelector<HTMLAnchorElement>("[data-language-choice]")?.addEventListener("click", (event) => {
     const choice = (event.currentTarget as HTMLAnchorElement).dataset.languageChoice;
     if (choice) localStorage.setItem("portfolio-language", choice);
   });
   navItems.forEach((item) => {
-    item?.addEventListener("click", toggleMenu);
+    item?.addEventListener("click", () => {
+      if (window.matchMedia("(max-width: 639px)").matches) setMenuOpen(false);
+    });
   });
 
   // Fermer le menu mobile au clic en dehors
@@ -99,7 +114,17 @@ const { siteLogo, navLinks, lang, languageHref } = Astro.props;
       !menu?.contains(target) &&
       !button?.contains(target)
     ) {
-      toggleMenu();
+      setMenuOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      button?.getAttribute("aria-expanded") === "true"
+    ) {
+      setMenuOpen(false);
+      button.focus();
     }
   });
 

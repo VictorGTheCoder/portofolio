@@ -136,7 +136,6 @@ export const SITE_CONTENT: SiteContent = {
 
       Mon parcours combine la base technique exigeante de 42 Lausanne et une formation académique en data science à la HEIG-VD. Mes projets personnels me servent de laboratoire: agents IA, analyse immobilière, génération de supports d'étude et outils web déployés publiquement.
     `,
-    image: "/victor-mark.svg",
   },
   contact: {
     email: "victor.giordani@protonmail.com",
@@ -225,7 +224,6 @@ export const SITE_CONTENT_EN: SiteContent = {
 
       My background combines the demanding technical foundation of 42 Lausanne with academic studies in data science at HEIG-VD. My personal projects are a place to experiment with AI agents, property analysis, study material generation, and publicly available web tools.
     `,
-    image: "/victor-mark.svg",
   },
   contact: { email: "victor.giordani@protonmail.com" },
 };

@@ -8,7 +8,7 @@ const english = Astro.url.pathname.startsWith("/en");
 ---
 
 <section id="contact" class="py-24">
-  <div class="reveal glass relative overflow-hidden rounded-3xl px-6 py-16 text-center md:py-20">
+  <div class="glass relative overflow-hidden rounded-3xl px-6 py-16 text-center md:py-20">
     <div class="glow-radial absolute -top-20 left-1/2 h-80 w-80 -translate-x-1/2 opacity-40"></div>
 
     <h2 class="mb-4 font-display text-4xl font-bold tracking-tighter text-fg md:text-5xl">
@@ -23,7 +23,7 @@ const english = Astro.url.pathname.startsWith("/en");
     <div class="mb-8 flex flex-wrap items-center justify-center gap-3">
       <a
         href={`mailto:${email}`}
-        class="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:scale-105 hover:bg-accent-soft"
+        class="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 motion-safe:hover:scale-105 hover:bg-accent-soft motion-safe:active:scale-[.98]"
       >
         {email}
       </a>
@@ -32,7 +32,7 @@ const english = Astro.url.pathname.startsWith("/en");
         id="copy-email"
         data-email={email}
         aria-live="polite"
-        class="rounded-full border border-border px-6 py-3 text-sm font-semibold text-fg transition-colors duration-200 hover:border-accent hover:text-accent"
+        class="rounded-full border border-border px-6 py-3 text-sm font-semibold text-fg transition-colors duration-200 hover:border-accent hover:text-accent motion-safe:active:scale-[.98]"
       >
         {english ? "Copy email" : "Copier"}
       </button>

@@ -16,7 +16,7 @@ const english = Astro.url.pathname.startsWith("/en");
 
   <div
     aria-hidden="true"
-    class="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+    class="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100 motion-reduce:transition-none"
     style="background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--color-accent) 25%, transparent), transparent 70%);"
   >
   </div>
@@ -29,22 +29,21 @@ const english = Astro.url.pathname.startsWith("/en");
 
   <div class="mx-auto w-full max-w-5xl px-5">
     <h1
-      data-scramble
-      class="reveal mb-3 font-display text-6xl font-bold tracking-tightest text-fg sm:text-7xl md:text-8xl"
+      class="mb-3 font-display text-6xl font-bold tracking-tightest text-fg sm:text-7xl md:text-8xl"
     >
       {name}
     </h1>
-    <p class="reveal mb-8 font-display text-3xl font-bold tracking-tighter text-accent sm:text-4xl md:text-5xl">
+    <p class="mb-8 font-display text-3xl font-bold tracking-tighter text-accent sm:text-4xl md:text-5xl">
       {specialty}
     </p>
-    <p class="reveal mb-12 max-w-2xl text-base text-muted md:text-lg">
+    <p class="mb-12 max-w-2xl text-base text-muted md:text-lg">
       {summary}
     </p>
 
-    <div class="reveal flex flex-wrap gap-4">
+    <div class="flex flex-wrap gap-4">
       <a
         href="#projects"
-        class="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:scale-105 hover:bg-accent-soft"
+        class="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 motion-safe:hover:scale-105 hover:bg-accent-soft motion-safe:active:scale-[.98]"
       >
         {english ? "View my projects" : "Voir mes projets"}
       </a>
@@ -70,27 +69,5 @@ const english = Astro.url.pathname.startsWith("/en");
       hero.style.setProperty("--my", `${e.clientY - r.top}px`);
     });
 
-    // Effet "décryptage" sur le nom au chargement
-    const el = document.querySelector<HTMLElement>("[data-scramble]");
-    if (el) {
-      const final = el.textContent ?? "";
-      const glyphs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/[]{}#%&";
-      let frame = 0;
-      const settle = 3; // frames avant qu'une lettre se fige
-      const render = () => {
-        let out = "";
-        for (let i = 0; i < final.length; i++) {
-          const ch = final[i];
-          if (ch === " ") out += " ";
-          else if (frame / settle > i) out += ch;
-          else out += glyphs[Math.floor(Math.random() * glyphs.length)];
-        }
-        el.textContent = out;
-        frame++;
-        if (frame / settle <= final.length) requestAnimationFrame(render);
-        else el.textContent = final;
-      };
-      render();
-    }
   }
 </script>

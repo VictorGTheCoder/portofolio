@@ -30,17 +30,6 @@
   --tracking-tighter: -0.02em;
   --tracking-tight: -0.01em;
 
-  --animate-marquee: marquee 30s linear infinite;
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  @keyframes reveal-up {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
 }
 
 html {
@@ -50,6 +39,33 @@ html {
 
 body {
   color: var(--color-fg);
+}
+
+:where(h1, h2, h3, h4) {
+  text-wrap: balance;
+}
+
+:where(a, button) {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(139, 139, 255, 0.18);
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(calc(-100% - 1rem));
+  border-radius: 9999px;
+  background: var(--color-fg);
+  padding: 0.75rem 1rem;
+  color: var(--color-bg);
+  font-weight: 600;
+  transition: transform 150ms ease-out;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
 }
 
 /* Cartes / surfaces en verre dépoli */
@@ -63,6 +79,15 @@ body {
   backdrop-filter: blur(12px);
 }
 
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-accent-soft);
+  outline-offset: 3px;
+}
+
+:where(a, button):active {
+  filter: brightness(0.9);
+}
+
 /* Halo radial glow réutilisable (positionné par l'élément parent) */
 .glow-radial {
   background: radial-gradient(
@@ -74,29 +99,32 @@ body {
   pointer-events: none;
 }
 
-/* Reveal au scroll : état initial caché, .is-visible déclenche l'anim */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 600ms ease, transform 600ms ease;
-  will-change: opacity, transform;
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .animate-marquee,
-  [class*="animate-"] {
-    animation: none !important;
-  }
   html {
     scroll-behavior: auto;
+  }
+
+  .skip-link {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--color-surface);
+    backdrop-filter: none;
+  }
+
+  #site-header.scrolled {
+    background: var(--color-bg);
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .glass {
+    background: var(--color-surface);
+    border-color: var(--color-muted);
+    backdrop-filter: none;
   }
 }

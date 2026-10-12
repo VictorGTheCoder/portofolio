@@ -6,49 +6,33 @@ interface Props {
 }
 
 const { stack } = Astro.props;
-// Dupliqué pour une boucle de marquee sans couture (translateX -50%)
-const items = [...stack, ...stack];
 ---
 
 <section id="stack" class="py-24">
-  <h2 class="reveal mb-12 font-display text-4xl font-bold tracking-tighter text-fg md:text-5xl">
+  <h2 class="mb-12 font-display text-4xl font-bold tracking-tighter text-fg md:text-5xl">
     Stack
   </h2>
 
-  <div
-    class="reveal relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
-  >
-    <ul
-      id="stack-marquee"
-      class="flex w-max animate-marquee gap-4 hover:[animation-play-state:paused]"
-    >
-      {
-        items.map((item) => (
-          <li class="glass flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-fg">
-            {item.logo ? (
-              <img
-                src={item.logo}
-                alt={item.name}
-                width="20"
-                height="20"
-                class="h-5 w-5 object-contain"
-              />
-            ) : (
-              <span class="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
-            )}
-            {item.name}
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  <ul class="flex flex-wrap gap-3">
+    {
+      stack.map((item) => (
+        <li class="glass flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-fg">
+          {item.logo ? (
+            <img
+              src={item.logo}
+              alt=""
+              aria-hidden="true"
+              width="20"
+              height="20"
+              loading="lazy"
+              class="h-5 w-5 object-contain"
+            />
+          ) : (
+            <span class="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
+          )}
+          {item.name}
+        </li>
+      ))
+    }
+  </ul>
 </section>
-
-<script>
-  // Pause/reprise au tap sur mobile/tactile (le hover ne s'applique pas)
-  const marquee = document.querySelector<HTMLElement>("#stack-marquee");
-  marquee?.addEventListener("click", () => {
-    const paused = marquee.style.animationPlayState === "paused";
-    marquee.style.animationPlayState = paused ? "running" : "paused";
-  });
-</script>
